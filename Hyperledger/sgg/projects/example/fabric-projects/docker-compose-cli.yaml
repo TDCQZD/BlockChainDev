@@ -1,0 +1,90 @@
+
+version: '2'
+
+volumes:
+  orderer.atguigu.com:
+  peer0.org1.atguigu.com:
+  peer1.org1.atguigu.com:
+  peer0.org2.atguigu.com:
+  peer1.org2.atguigu.com:
+
+networks:
+  atguigu:
+
+services: # Service根下，是该模板文件定义的所有服务
+
+  orderer.atguigu.com:
+    extends:
+      file:   docker-compose-base.yaml # 进行拓展时使用的文件，可以认为是继承
+      service: orderer.atguigu.com # 进行拓展时使用的服务
+    # 以上表示使用base/docker-compose-base.yaml中的orderer.atguigu.com服务进行拓展
+    container_name: orderer.atguigu.com
+    networks:
+      - atguigu 
+
+  peer0.org1.atguigu.com:
+    container_name: peer0.org1.atguigu.com
+    extends:
+      file:  docker-compose-base.yaml
+      service: peer0.org1.atguigu.com
+    networks:
+      - atguigu 
+
+  peer1.org1.atguigu.com:
+    container_name: peer1.org1.atguigu.com
+    extends:
+      file:  docker-compose-base.yaml
+      service: peer1.org1.atguigu.com
+    networks:
+      - atguigu 
+
+  peer0.org2.atguigu.com:
+    container_name: peer0.org2.atguigu.com
+    extends:
+      file:  docker-compose-base.yaml
+      service: peer0.org2.atguigu.com
+    networks:
+      - atguigu 
+
+  peer1.org2.atguigu.com:
+    container_name: peer1.org2.atguigu.com
+    extends:
+      file:  docker-compose-base.yaml
+      service: peer1.org2.atguigu.com
+    networks:
+      - atguigu 
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools:$IMAGE_TAG
+    tty: true # 模拟一个假的远程控制台。
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      #- CORE_LOGGING_LEVEL=DEBUG
+      - CORE_LOGGING_LEVEL=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.org1.atguigu.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.atguigu.com/peers/peer0.org1.atguigu.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.atguigu.com/peers/peer0.org1.atguigu.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.atguigu.com/peers/peer0.org1.atguigu.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.atguigu.com/users/Admin@org1.atguigu.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./chaincode/:/opt/gopath/src/github.com/chaincode
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    depends_on: # 保证服务开启的顺序
+      - orderer.atguigu.com
+      - peer0.org1.atguigu.com
+      - peer1.org1.atguigu.com
+      - peer0.org2.atguigu.com
+      - peer1.org2.atguigu.com
+    networks:
+      - atguigu

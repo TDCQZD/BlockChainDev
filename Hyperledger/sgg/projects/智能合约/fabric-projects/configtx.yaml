@@ -1,0 +1,170 @@
+# 这一部分主要定义一系列的组织结构，根据服务对象类型的不同，包括Orderer组织和普通的应用组织。
+# Orderer类型组织包括名称、ID、MSP文件路径、管理员策略等，应用类型组织还会配置锚点Peer信息。这些组织都会被Profiles部分引用使用。
+Organizations:
+
+    - &OrdererOrg # orderer组织也就是排序组织
+        Name: OrdererOrg
+        ID: OrdererMSP # MSP的ID
+        MSPDir: crypto-config/ordererOrganizations/atguigu.com/msp # MSP相关文件所在本地路径
+        # 背书策略
+        Policies:
+            Readers: # 读权限
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers: # 写权限
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:  # 管理员权限
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
+
+    - &Org1 # 组织1
+        Name: Org1MSP
+        ID: Org1MSP
+        MSPDir: crypto-config/peerOrganizations/org1.atguigu.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('Org1MSP.admin')"
+
+        # AnchorPeers defines the location of peers which can be used
+        # for cross org gossip communication.  Note, this value is only
+        # encoded in the genesis block in the Application section context
+        AnchorPeers:
+            - Host: peer0.org1.atguigu.com
+              Port: 7051
+
+    - &Org2 # 组织2
+        Name: Org2MSP
+        ID: Org2MSP
+        MSPDir: crypto-config/peerOrganizations/org2.atguigu.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('Org2MSP.admin', 'Org2MSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('Org2MSP.admin')"
+
+        AnchorPeers:
+            - Host: peer0.org2.atguigu.com
+              Port: 7051
+
+Capabilities:
+    Channel: &ChannelCapabilities
+        V1_3: true # 通道的版本必须是1.3
+
+    Orderer: &OrdererCapabilities
+        V1_1: true # 排序节点的版本可以是1.1，之前的不行
+
+    Application: &ApplicationCapabilities # 应用只支持1.3版本。
+        V1_3: true
+        V1_2: false
+        V1_1: false
+
+Application: &ApplicationDefaults
+
+    Organizations:
+
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+
+Orderer: &OrdererDefaults
+
+    OrdererType: solo # 排序算法：是solo还是kafka, 中心化和半中心化的区别
+
+    Addresses:
+        - orderer.atguigu.com:7050
+
+    # BatchTimeout是配置多久产生一个区块，默认是2秒，通常在项目实践中，我们发现交易量并不大，如果配置的时间过小就会产生很多空的区块，配置时间太长，则发现等待产生区块的时间太长。具体时间由交易频率和业务量决定。我们实际项目中，通常配置在30秒。
+    BatchTimeout: 2s
+
+    BatchSize:
+
+        # MaxMessageCount是配置在一个区块中允许的交易数的最大值。默认值是10。交易数设置过小，导致区块过多，增加orderer的负担，因为要orderer要不断的打包区块，然后deliver给通道内的所有peer,这样还容易增加网络负载，引起网络拥堵。我们实际项目中通常配置500，不过具体还应该看业务情况，因为如果每个交易包含的数据的size如果太大，那么500个交易可能导致一个区块太大，因此需要根据实际业务需求权衡。
+        # 这里有2个参数可以配置区块的出块策略，那么究竟那个因素优先发生作用呢？实际上根据Fabric设计的出块策略，BatchTimeout和MaxMessageCount的任何一个参数条件满足，都会触发产生新的区块。举个例子，假设我们配置了出块时间BatchTimeout为30秒，块内交易最大数量MaxMessageCount为500。第一种情况，当出块时间为20秒(时间上还没达到出块要求)，但是交易数已经累积到500个了，这个时候也会触发新的区块产生。第二种情况，交易数才1个，但是出块时间已经30秒了，这个时间也会触发新的区块产生，尽管这个新的区块里只有一个交易。
+        # Fabric的这种出块策略设计相比还是比较灵活的，可配置的。相比而言，在比特币中，大家都知道出块机制是固定的，就是每隔10分钟（600秒）产生一个区块，就一个陌生，不可更改。而以太坊类似，也是基于事件的出块策略，只是时间更短，每15秒产生一个区块。因此，Fabric的出块策略在设计上还是比较进步的。
+
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+
+    Kafka: # kafka的地址
+        Brokers:
+            - 127.0.0.1:9092
+
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+
+    Capabilities:
+        # &用来建立锚点，<<表示合并到当前数据，*用来引用锚点。
+        <<: *ChannelCapabilities
+
+# 定义了一系列的Profile，每个Profile代表了某种应用场景下的通道配置模板，包括Orderer系统通道模板或应用通道模板，有时候也混合放到一起。
+# Orderer系统通道模板必须包括Orderer、Consortiums信息：
+# 一般建议将Profile分为Orderer系统通道配置和应用通道配置两种。
+Profiles:
+
+    TwoOrgsOrdererGenesis: # Orderer系统通道配置。通道为默认配置，添加一个OrdererOrg组织；联盟为默认的SampleConsortium联盟，添加了两个组织。
+        <<: *ChannelDefaults
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations: # 属于Orderer通道的组织
+                - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Consortiums:
+            SampleConsortium: # 创建更多应用通道时的联盟
+                Organizations:
+                    - *Org1
+                    - *Org2
+    TwoOrgsChannel: # 应用通道配置。默认配置的应用通道。添加了两个组织。联盟为SampleConsortium
+        Consortium: SampleConsortium # 联盟
+        Application:
+            <<: *ApplicationDefaults
+            Organizations: # 初始加入应用通道的组织
+                - *Org1
+                - *Org2
+            Capabilities:
+                <<: *ApplicationCapabilities

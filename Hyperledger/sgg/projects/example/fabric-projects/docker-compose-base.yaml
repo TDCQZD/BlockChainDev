@@ -1,0 +1,110 @@
+
+version: '2' # 表示用的是版本2的YAML模板
+
+services: # # 在版本2中，所有的服务都要放在services根下面
+
+  orderer.atguigu.com: # Orderer排序服务
+    container_name: orderer.atguigu.com # 定义容器的名称
+    image: hyperledger/fabric-orderer:$IMAGE_TAG  # 指定容器的镜像
+    environment: # 设置环境变量
+      - ORDERER_GENERAL_LOGLEVEL=INFO         # 日志级别
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0 # 监听的host地址
+      - ORDERER_GENERAL_GENESISMETHOD=file    # 创世区块的类型是文件
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block # 排序节点的创世区块的位置
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP # msp的id名称, MSP是区块链里的账户
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp # msp的地址
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true # 使用tls，注意复习https
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key # 私钥的位置
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt # 证书的位置
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] # 根证书的位置
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric # 指定容器的工作目录
+    command: orderer # 容器启动后默认执行的命令
+    volumes: # 将本地文件路径映射到容器中的路径之中
+    - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ./crypto-config/ordererOrganizations/atguigu.com/orderers/orderer.atguigu.com/msp:/var/hyperledger/orderer/msp
+    - ./crypto-config/ordererOrganizations/atguigu.com/orderers/orderer.atguigu.com/tls/:/var/hyperledger/orderer/tls
+    - orderer.atguigu.com:/var/hyperledger/production/orderer
+    ports: # 暴露端口信息
+      - 7050:7050
+
+  peer0.org1.atguigu.com: # Org1的Peer0服务
+    container_name: peer0.org1.atguigu.com
+    extends:
+      file: peer-base.yaml # 扩展peer-base.yaml，也可以认为是继承
+      service: peer-base # 扩展的服务名称
+    environment:
+      - CORE_PEER_ID=peer0.org1.atguigu.com # peer节点的id名称
+      - CORE_PEER_ADDRESS=peer0.org1.atguigu.com:7051 # peer节点监听的地址
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.atguigu.com:7051 # gossip协议的传播对象
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.atguigu.com:7051 # gossip协议暴露的endpoint端点
+      - CORE_PEER_LOCALMSPID=Org1MSP # msp的id名称
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./crypto-config/peerOrganizations/org1.atguigu.com/peers/peer0.org1.atguigu.com/msp:/etc/hyperledger/fabric/msp
+        - ./crypto-config/peerOrganizations/org1.atguigu.com/peers/peer0.org1.atguigu.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.org1.atguigu.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+      - 7053:7053
+
+  peer1.org1.atguigu.com: # Org1的Peer1服务
+    container_name: peer1.org1.atguigu.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.org1.atguigu.com
+      - CORE_PEER_ADDRESS=peer1.org1.atguigu.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.atguigu.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.atguigu.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./crypto-config/peerOrganizations/org1.atguigu.com/peers/peer1.org1.atguigu.com/msp:/etc/hyperledger/fabric/msp
+        - ./crypto-config/peerOrganizations/org1.atguigu.com/peers/peer1.org1.atguigu.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.org1.atguigu.com:/var/hyperledger/production
+
+    ports:
+      - 8051:7051
+      - 8053:7053
+
+  peer0.org2.atguigu.com:
+    container_name: peer0.org2.atguigu.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.org2.atguigu.com
+      - CORE_PEER_ADDRESS=peer0.org2.atguigu.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.atguigu.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.atguigu.com:7051
+      - CORE_PEER_LOCALMSPID=Org2MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./crypto-config/peerOrganizations/org2.atguigu.com/peers/peer0.org2.atguigu.com/msp:/etc/hyperledger/fabric/msp
+        - ./crypto-config/peerOrganizations/org2.atguigu.com/peers/peer0.org2.atguigu.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.org2.atguigu.com:/var/hyperledger/production
+    ports:
+      - 9051:7051
+      - 9053:7053
+
+  peer1.org2.atguigu.com:
+    container_name: peer1.org2.atguigu.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.org2.atguigu.com
+      - CORE_PEER_ADDRESS=peer1.org2.atguigu.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.atguigu.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.atguigu.com:7051
+      - CORE_PEER_LOCALMSPID=Org2MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./crypto-config/peerOrganizations/org2.atguigu.com/peers/peer1.org2.atguigu.com/msp:/etc/hyperledger/fabric/msp
+        - ./crypto-config/peerOrganizations/org2.atguigu.com/peers/peer1.org2.atguigu.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.org2.atguigu.com:/var/hyperledger/production
+    ports:
+      - 10051:7051
+      - 10053:7053

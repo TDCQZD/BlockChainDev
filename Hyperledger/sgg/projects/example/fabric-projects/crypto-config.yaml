@@ -1,0 +1,22 @@
+
+OrdererOrgs:
+  - Name: Orderer          # 排序节点
+    Domain: atguigu.com    # 域名
+    Specs:
+      - Hostname: orderer  # 主机
+PeerOrgs:
+  - Name: Org1            # 组织1
+    Domain: org1.atguigu.com
+    EnableNodeOUs: true   # 如果设置了EnableNodeOUs，就在msp下生成config.yaml文件
+    Template:
+      Count: 2            # 有两个节点
+    Users:
+      Count: 1            # 除了Admin还有多少用户
+  - Name: Org2            # 组织2
+    Domain: org2.atguigu.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
