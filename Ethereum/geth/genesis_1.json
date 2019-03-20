@@ -1,0 +1,10 @@
+{
+    "config": {
+        "chainId": 15
+    },
+    "difficulty": "2000",
+    "gasLimit": "2100000",
+    "alloc": {
+        "0x674FAE0517C66637ef077DFA2bF0301b7879A3a1": { "balance": "3000000000000000000" }
+    }
+}

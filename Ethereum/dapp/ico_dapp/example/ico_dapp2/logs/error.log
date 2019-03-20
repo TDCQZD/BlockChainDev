@@ -1,0 +1,100 @@
+2018-11-30 19:30:51: WARNING: NODE_APP_INSTANCE value of '0' did not match any instance config file names.
+2018-11-30 19:30:51: WARNING: See https://github.com/lorenwest/node-config/wiki/Strict-Mode
+2018-11-30 19:45:49: Error: Returned values aren't valid, did it run Out of Gas?
+    at ABICoder.decodeParameters (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-abi/src/index.js:226:15)
+    at Contract._decodeMethodReturn (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:465:22)
+    at Method.outputFormatter (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:818:46)
+    at Method.formatOutput (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:163:54)
+    at sendTxCallback (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:473:33)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-core-requestmanager/src/index.js:147:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:152:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/once.js:12:16
+    at replenish (/root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:61:25)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:71:9
+    at eachLimit (/root/ethereum/dapp/ico_dapp2/node_modules/async/eachLimit.js:43:36)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/doLimit.js:9:16
+    at end (/root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:127:5)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/subproviders/provider.js:20:5
+    at XMLHttpRequest.request.onreadystatechange (/root/ethereum/dapp/ico_dapp2/node_modules/truffle-hdwallet-provider/node_modules/web3/lib/web3/httpprovider.js:118:13)
+    at XMLHttpRequestEventTarget.dispatchEvent (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpResponseEnd (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:509:12)
+    at IncomingMessage.<anonymous> (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:469:24)
+    at emitNone (events.js:120:20)
+    at IncomingMessage.emit (events.js:218:7)
+    at endReadableNT (_stream_readable.js:1054:12)
+2018-11-30 19:47:06: Error: Returned values aren't valid, did it run Out of Gas?
+    at ABICoder.decodeParameters (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-abi/src/index.js:226:15)
+    at Contract._decodeMethodReturn (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:465:22)
+    at Method.outputFormatter (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:818:46)
+    at Method.formatOutput (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:163:54)
+    at sendTxCallback (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:473:33)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-core-requestmanager/src/index.js:147:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:152:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/once.js:12:16
+    at replenish (/root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:61:25)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:71:9
+    at eachLimit (/root/ethereum/dapp/ico_dapp2/node_modules/async/eachLimit.js:43:36)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/doLimit.js:9:16
+    at end (/root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:127:5)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/subproviders/provider.js:20:5
+    at XMLHttpRequest.request.onreadystatechange (/root/ethereum/dapp/ico_dapp2/node_modules/truffle-hdwallet-provider/node_modules/web3/lib/web3/httpprovider.js:118:13)
+    at XMLHttpRequestEventTarget.dispatchEvent (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpResponseEnd (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:509:12)
+    at IncomingMessage.<anonymous> (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:469:24)
+    at emitNone (events.js:120:20)
+    at IncomingMessage.emit (events.js:218:7)
+    at endReadableNT (_stream_readable.js:1054:12)
+2018-11-30 19:54:12: Error: Returned values aren't valid, did it run Out of Gas?
+    at ABICoder.decodeParameters (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-abi/src/index.js:226:15)
+    at Contract._decodeMethodReturn (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:465:22)
+    at Method.outputFormatter (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:818:46)
+    at Method.formatOutput (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:163:54)
+    at sendTxCallback (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:473:33)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-core-requestmanager/src/index.js:147:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:152:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/once.js:12:16
+    at replenish (/root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:61:25)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:71:9
+    at eachLimit (/root/ethereum/dapp/ico_dapp2/node_modules/async/eachLimit.js:43:36)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/doLimit.js:9:16
+    at end (/root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:127:5)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/subproviders/provider.js:20:5
+    at XMLHttpRequest.request.onreadystatechange (/root/ethereum/dapp/ico_dapp2/node_modules/truffle-hdwallet-provider/node_modules/web3/lib/web3/httpprovider.js:118:13)
+    at XMLHttpRequestEventTarget.dispatchEvent (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpResponseEnd (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:509:12)
+    at IncomingMessage.<anonymous> (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:469:24)
+    at emitNone (events.js:120:20)
+    at IncomingMessage.emit (events.js:218:7)
+    at endReadableNT (_stream_readable.js:1054:12)
+2018-11-30 20:05:47: WARNING: NODE_APP_INSTANCE value of '0' did not match any instance config file names.
+2018-11-30 20:05:47: WARNING: See https://github.com/lorenwest/node-config/wiki/Strict-Mode
+2018-11-30 20:06:21: Error: Returned values aren't valid, did it run Out of Gas?
+    at ABICoder.decodeParameters (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-abi/src/index.js:226:15)
+    at Contract._decodeMethodReturn (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:465:22)
+    at Method.outputFormatter (/root/ethereum/dapp/ico_dapp2/node_modules/web3-eth-contract/src/index.js:818:46)
+    at Method.formatOutput (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:163:54)
+    at sendTxCallback (/root/ethereum/dapp/ico_dapp2/node_modules/web3-core-method/src/index.js:473:33)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-core-requestmanager/src/index.js:147:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:152:9
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/once.js:12:16
+    at replenish (/root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:61:25)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/eachOfLimit.js:71:9
+    at eachLimit (/root/ethereum/dapp/ico_dapp2/node_modules/async/eachLimit.js:43:36)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/async/internal/doLimit.js:9:16
+    at end (/root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/index.js:127:5)
+    at /root/ethereum/dapp/ico_dapp2/node_modules/web3-provider-engine/subproviders/provider.js:20:5
+    at XMLHttpRequest.request.onreadystatechange (/root/ethereum/dapp/ico_dapp2/node_modules/truffle-hdwallet-provider/node_modules/web3/lib/web3/httpprovider.js:118:13)
+    at XMLHttpRequestEventTarget.dispatchEvent (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpResponseEnd (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:509:12)
+    at IncomingMessage.<anonymous> (/root/ethereum/dapp/ico_dapp2/node_modules/xhr2/lib/xhr2.js:469:24)
+    at emitNone (events.js:120:20)
+    at IncomingMessage.emit (events.js:218:7)
+    at endReadableNT (_stream_readable.js:1054:12)
+2018-11-30 20:40:52: WARNING: NODE_APP_INSTANCE value of '0' did not match any instance config file names.
+2018-11-30 20:40:52: WARNING: See https://github.com/lorenwest/node-config/wiki/Strict-Mode
+2018-11-30 20:43:30: WARNING: NODE_APP_INSTANCE value of '0' did not match any instance config file names.
+2018-11-30 20:43:30: WARNING: See https://github.com/lorenwest/node-config/wiki/Strict-Mode
