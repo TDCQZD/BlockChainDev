@@ -6,7 +6,12 @@
 * [白皮书 | 以太坊 (Ethereum ):下一代智能合约和去中心化应用平台] https://ethfans.org/posts/ethereum-whitepaper
 * [Mastering Ethereum] https://github.com/ethereumbook/ethereumbook
 * [精通以太坊(中文)] https://github.com/inoutcode/ethereum_book
-### 
+### 以太坊设计原理
+* https://ethfans.org/posts/510
+### 以太坊 EVM原理与实现
+* https://www.cnblogs.com/helloworld2018/p/8998926.html
+
+以太坊底层通过EVM模块支持合约的执行与调用，调用时根据合约地址获取到代码，生成环境后载入到EVM中运行。通常智能合约的开发流程是用solidlity编写逻辑代码，再通过编译器编译元数据，最后再发布到以太坊上。
 
 ## 以太坊网站
 * [官网] https://ethereum.org/
