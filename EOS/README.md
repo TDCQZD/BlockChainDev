@@ -4,6 +4,7 @@ EOS.io软件引入了一种新的块链架构，旨在实现分布式应用的�
 * https://github.com/eosio
 * https://developers.eos.io/eosio-home/docs
 * https://github.com/eoscanada/eos-go/blob/master/README-cn.md
+* https://github.com/yinchengtsinghua/EOSIOChineseCPP
 ## 基础
 
 ## 项目
