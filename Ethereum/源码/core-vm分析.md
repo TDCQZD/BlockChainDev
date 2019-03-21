@@ -4,8 +4,7 @@ contract 代表了以太坊 state database里面的一个合约。包含了合�
 
 
 结构
-
-```    
+``` 
     // ContractRef is a reference to the contract's backing object
     type ContractRef interface {
         Address() common.Address
@@ -48,11 +47,11 @@ contract 代表了以太坊 state database里面的一个合约。包含了合�
     
         DelegateCall bool  
     }
-```  
-
+  
+```
 构造
-
-```      
+```
+     
     // NewContract returns a new contract environment for the execution of EVM.
     func NewContract(caller ContractRef, object ContractRef, value *big.Int, gas uint64) *Contract {
         c := &Contract{CallerAddress: caller.Address(), caller: caller, self: object, Args: nil}
@@ -73,9 +72,9 @@ contract 代表了以太坊 state database里面的一个合约。包含了合�
     
         return c
     }
-```  
+```
 AsDelegate将合约设置为委托调用并返回当前合同（用于链式调用）
-```  
+```
     // AsDelegate sets the contract to be a delegate call and returns the current
     // contract (for chaining calls)
     func (c *Contract) AsDelegate() *Contract {
@@ -88,9 +87,10 @@ AsDelegate将合约设置为委托调用并返回当前合同（用于链式调�
     
         return c
     }
-```          
+```
+       
 GetOp  用来获取下一跳指令
-```      
+```  
     // GetOp returns the n'th element in the contract's byte array
     func (c *Contract) GetOp(n uint64) OpCode {
         return OpCode(c.GetByte(n))
@@ -112,9 +112,9 @@ GetOp  用来获取下一跳指令
     func (c *Contract) Caller() common.Address {
         return c.CallerAddress
     }
-```  
+```
 UseGas使用Gas。 
-```      
+```    
     // UseGas attempts the use gas and subtracts it and returns true on success
     func (c *Contract) UseGas(gas uint64) (ok bool) {
         if c.Gas < gas {
@@ -133,9 +133,9 @@ UseGas使用Gas。
     func (c *Contract) Value() *big.Int {
         return c.value
     }
-```  
+```
 SetCode ，SetCallCode 设置代码。
-```  
+```
     // SetCode sets the code to the contract
     func (self *Contract) SetCode(hash common.Hash, code []byte) {
         self.Code = code
@@ -150,11 +150,11 @@ SetCode ，SetCallCode 设置代码。
         self.CodeAddr = addr
     }
 
-```  
+```
 ## evm.go
 
 结构
-```  
+```
 
     // Context provides the EVM with auxiliary information. Once provided
     // it shouldn't be modified.
@@ -220,9 +220,9 @@ SetCode ，SetCallCode 设置代码。
         // NOTE: must be set atomically
         abort int32
     }
-```  
+```
 构造函数
-```     
+```   
     // NewEVM retutrns a new EVM . The returned EVM is not thread safe and should
     // only ever be used *once*.
     func NewEVM(ctx Context, statedb StateDB, chainConfig *params.ChainConfig, vmConfig Config) *EVM {
@@ -244,9 +244,9 @@ SetCode ，SetCallCode 设置代码。
         atomic.StoreInt32(&evm.abort, 1)
     }
 
-```  
+```
 合约创建 Create 会创建一个新的合约。
-```  
+```
     
     // Create creates a new contract using code as deployment code.
     func (evm *EVM) Create(caller ContractRef, code []byte, gas uint64, value *big.Int) (ret []byte, contractAddr common.Address, leftOverGas uint64, err error) {
@@ -321,9 +321,9 @@ SetCode ，SetCallCode 设置代码。
         return ret, contractAddr, contract.Gas, err
     }
 
-```  
+```
 Call方法, 无论我们转账或者是执行合约代码都会调用到这里， 同时合约里面的call指令也会执行到这里。
-```  
+```
     
     // Call executes the contract associated with the addr with the given input as
     // parameters. It also handles any necessary value transfer required and takes
@@ -395,7 +395,7 @@ Call方法, 无论我们转账或者是执行合约代码都会调用到这里�
         return ret, contract.Gas, err
     }
 
-```  
+```
 剩下的三个函数 CallCode, DelegateCall, 和 StaticCall，这三个函数不能由外部调用，只能由Opcode触发。
  
 
@@ -438,7 +438,7 @@ CallCode
         }
         return ret, contract.Gas, err
     }
-``` 
+```
 DelegateCall
 ``` 
     // DelegateCall differs from CallCode in the sense that it executes the given address'
@@ -517,4 +517,4 @@ DelegateCall
         }
         return ret, contract.Gas, err
     }
-``` 
+```
