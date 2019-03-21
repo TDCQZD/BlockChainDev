@@ -4,6 +4,7 @@ contract 代表了以太坊 state database里面的一个合约。包含了合�
 
 
 结构
+
 ```    
     // ContractRef is a reference to the contract's backing object
     type ContractRef interface {
@@ -48,7 +49,9 @@ contract 代表了以太坊 state database里面的一个合约。包含了合�
         DelegateCall bool  
     }
 ```  
+
 构造
+
 ```      
     // NewContract returns a new contract environment for the execution of EVM.
     func NewContract(caller ContractRef, object ContractRef, value *big.Int, gas uint64) *Contract {
@@ -219,7 +222,7 @@ SetCode ，SetCallCode 设置代码。
     }
 ```  
 构造函数
- ```     
+```     
     // NewEVM retutrns a new EVM . The returned EVM is not thread safe and should
     // only ever be used *once*.
     func NewEVM(ctx Context, statedb StateDB, chainConfig *params.ChainConfig, vmConfig Config) *EVM {
