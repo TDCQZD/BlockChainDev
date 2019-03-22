@@ -7,6 +7,7 @@
 **Golang实现比特币：**
 
 * btcd    :https://github.com/btcsuite/btcd
+    - https://github.com/yinchengtsinghua/golang-bitcoin-chinese
 * btcutil :https://github.com/btcsuite/btcutil
 
 源码编译参考：
@@ -21,9 +22,6 @@ https://github.com/confucianzuoyuan/blockchain-tutorial/blob/master/%E6%AF%94%E7
 * Node Counter是一个分析型的网站，跟踪整个比特币节点 https://bitnodes.earn.com/
 * [Blockchain Demo] https://anders.com/blockchain/
 
-## 项目
-* [Golang实现比特币]()
-* [比特币钱包开发]()
 
 ## 参考资料
 * 中本聪比特币论文[中文版].pdf
