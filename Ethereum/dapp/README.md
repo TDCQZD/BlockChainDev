@@ -1,7 +1,5 @@
 # Dapp
 
-
-
 ## Dapp 开发步骤
 1. 项目分析 
 2. 以太坊私链或者测试链
@@ -44,3 +42,6 @@ ico_dapp:
 2. 修改配置文件
 3. 合约编译部署
 4. 测试
+
+## 参考资料
+* [truffle+infura部署以太坊智能合约] http://blog.hubwiz.com/2018/04/01/truffle-infura-deploy-contract/

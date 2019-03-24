@@ -1,5 +1,5 @@
 # 梅克尔-帕特里夏树 Merkel-Patricia Tree（MPT）
-
+* https://ethfans.org/posts/merkle-patricia-tree-in-detail
 ## MPT是什么
 - Merkel Patricia Tree (MPT)，翻译为梅克尔-帕特里夏树
 - MPT 提供了一个基于密码学验证的底层数据结构，用来存储键值对（key-value）关系
