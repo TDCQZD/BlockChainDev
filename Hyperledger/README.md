@@ -10,13 +10,13 @@ Hyperledger超级账本是一个为了提高跨行业的区块链技术的开源
 * [Fabric SDK Go] https://chainhero.io/2018/06/tutorial-build-blockchain-app-v1-1-0/
 
 ## 网站
+* https://www.hyperledger.org/
+* https://github.com/hyperledger/fabric
+* https://hyperledger-fabric.readthedocs.io/en/latest/
 * https://blog.csdn.net/hugowang/article/details/82863415
-* https://hyperledger-fabric.readthedocs.io/en/release-1.3/
 
-## kafka 共识相关
-* https://kafka.apache.org/quickstart
-* https://zookeeper.apache.org/
 ## 项目
+
 [Hyperledger Fabric开发精要](https://www.chaindesk.cn/witbook/11)
 [构建基于 Fabric-SDK-Go 的Web应用](https://www.chaindesk.cn/witbook/5)
 [构建基于fabric-sdk-node的项目开发实战](https://www.chaindesk.cn/witbook/14)

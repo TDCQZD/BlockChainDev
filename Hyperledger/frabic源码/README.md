@@ -1,11 +1,4 @@
 # Hyperledger Fabric源码 解析
-> v1.2
- 
-* https://github.com/yinchengtsinghua/Fabric-Chinese
-* https://www.chaindesk.cn/witbook/30
-
-**解析源码的步骤：**
-1. 
 
 ## 目录结构说明
 ```
@@ -60,7 +53,11 @@ Hyperledger Fabric基础操作，下载好fabric-samples、Docker镜像文件、
 
 5. 安装、实例化链码，调用链码执行事务或查询
 
-
+## 参考资料
+* https://github.com/hyperledger/fabric
+* https://hyperledger-fabric.readthedocs.io/en/latest/
+* https://github.com/yinchengtsinghua/Fabric-Chinese
+* https://www.chaindesk.cn/witbook/30
 
 
 
