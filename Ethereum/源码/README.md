@@ -3,6 +3,7 @@
 * https://ethfans.org/posts/510
 ## 源码解析
 - 账户
+    - nonce
 - 默克尔帕特里夏树(Merkle Patricia tree/trie)
     - RLP
     - 树（trie）的使用
