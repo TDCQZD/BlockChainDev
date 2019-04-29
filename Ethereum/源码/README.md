@@ -1,6 +1,499 @@
 # 源码解析
-## 以太坊设计原理
-* https://ethfans.org/posts/510
+## 源码目录
+```
+├─accounts
+│  ├─abi
+│  │  └─bind
+│  │      └─backends
+│  ├─external
+│  ├─keystore
+│  │  └─testdata
+│  │      ├─dupes
+│  │      ├─keystore
+│  │      │  └─foo
+│  │      └─v1
+│  │          └─cb61d5a9c4896fb9658090b597ef0e7be6f7b67e
+│  ├─scwallet
+│  └─usbwallet
+│      └─trezor
+├─build
+│  └─deb
+│      ├─ethereum
+│      └─ethereum-swarm
+├─cmd
+│  ├─abigen
+│  ├─bootnode
+│  ├─clef
+│  │  ├─docs
+│  │  │  └─qubes
+│  │  └─tests
+│  ├─ethkey
+│  ├─evm
+│  │  └─internal
+│  │      └─compiler
+│  ├─faucet
+│  ├─geth
+│  │  └─testdata
+│  ├─p2psim
+│  ├─puppeth
+│  │  └─testdata
+│  ├─rlpdump
+│  ├─swarm
+│  │  ├─global-store
+│  │  ├─mimegen
+│  │  ├─swarm-smoke
+│  │  └─swarm-snapshot
+│  ├─utils
+│  └─wnode
+├─common
+│  ├─bitutil
+│  ├─compiler
+│  ├─fdlimit
+│  ├─hexutil
+│  ├─math
+│  ├─mclock
+│  └─prque
+├─consensus
+│  ├─clique
+│  ├─ethash
+│  └─misc
+├─console
+│  └─testdata
+├─contracts
+│  ├─chequebook
+│  │  └─contract
+│  └─ens
+│      ├─contract
+│      └─fallback_contract
+├─core
+│  ├─asm
+│  ├─bloombits
+│  ├─rawdb
+│  ├─state
+│  ├─types
+│  └─vm
+│      ├─runtime
+│      └─testdata
+├─crypto
+│  ├─bn256
+│  │  ├─cloudflare
+│  │  └─google
+│  ├─ecies
+│  └─secp256k1
+│      └─libsecp256k1
+│          ├─build-aux
+│          │  └─m4
+│          ├─contrib
+│          ├─include
+│          ├─obj
+│          ├─sage
+│          └─src
+│              ├─asm
+│              ├─java
+│              │  └─org
+│              │      └─bitcoin
+│              └─modules
+│                  ├─ecdh
+│                  └─recovery
+├─dashboard
+│  └─assets
+│      ├─components
+│      └─types
+├─docs
+│  └─audits
+├─eth
+│  ├─downloader
+│  ├─fetcher
+│  ├─filters
+│  ├─gasprice
+│  └─tracers
+│      ├─internal
+│      │  └─tracers
+│      └─testdata
+├─ethclient
+├─ethdb
+│  ├─leveldb
+│  └─memorydb
+├─ethstats
+├─event
+├─graphql
+├─internal
+│  ├─build
+│  ├─cmdtest
+│  ├─debug
+│  ├─ethapi
+│  ├─guide
+│  ├─jsre
+│  │  └─deps
+│  └─web3ext
+├─les
+│  └─flowcontrol
+├─light
+├─log
+├─metrics
+│  ├─exp
+│  ├─influxdb
+│  ├─librato
+│  └─prometheus
+├─miner
+├─mobile
+├─node
+├─p2p
+│  ├─discover
+│  ├─discv5
+│  ├─enode
+│  ├─enr
+│  ├─nat
+│  ├─netutil
+│  ├─protocols
+│  ├─simulations
+│  │  ├─adapters
+│  │  ├─examples
+│  │  └─pipes
+│  └─testing
+├─params
+├─rlp
+├─rpc
+│  └─testdata
+├─signer
+│  ├─core
+│  ├─fourbyte
+│  ├─rules
+│  │  └─deps
+│  └─storage
+├─swarm
+│  ├─api
+│  │  ├─client
+│  │  ├─http
+│  │  └─testdata
+│  │      └─test0
+│  │          └─img
+│  ├─bmt
+│  ├─chunk
+│  ├─dev
+│  │  └─scripts
+│  ├─docker
+│  ├─fuse
+│  ├─log
+│  ├─metrics
+│  ├─network
+│  │  ├─bitvector
+│  │  ├─priorityqueue
+│  │  ├─simulation
+│  │  ├─simulations
+│  │  │  └─discovery
+│  │  └─stream
+│  │      ├─intervals
+│  │      └─testing
+│  ├─pot
+│  ├─pss
+│  │  ├─client
+│  │  ├─notify
+│  │  └─testdata
+│  ├─sctx
+│  ├─services
+│  │  └─swap
+│  │      └─swap
+│  ├─shed
+│  ├─spancontext
+│  ├─state
+│  ├─storage
+│  │  ├─encryption
+│  │  ├─feed
+│  │  │  └─lookup
+│  │  ├─localstore
+│  │  └─mock
+│  │      ├─db
+│  │      ├─explorer
+│  │      ├─mem
+│  │      ├─rpc
+│  │      └─test
+│  ├─swap
+│  ├─testutil
+│  ├─tracing
+│  └─version
+├─tests
+│  └─testdata
+├─trie
+├─vendor
+│  ├─bazil.org
+│  │  └─fuse
+│  │      ├─fs
+│  │      └─fuseutil
+│  ├─github.com
+│  │  ├─allegro
+│  │  │  └─bigcache
+│  │  │      └─queue
+│  │  ├─apilayer
+│  │  │  └─freegeoip
+│  │  ├─aristanetworks
+│  │  │  └─goarista
+│  │  │      └─monotime
+│  │  ├─Azure
+│  │  │  ├─azure-pipeline-go
+│  │  │  │  └─pipeline
+│  │  │  ├─azure-sdk-for-go
+│  │  │  └─azure-storage-blob-go
+│  │  │      └─2018-03-28
+│  │  │          └─azblob
+│  │  ├─btcsuite
+│  │  │  └─btcd
+│  │  │      └─btcec
+│  │  ├─cespare
+│  │  │  └─cp
+│  │  ├─codahale
+│  │  │  └─hdrhistogram
+│  │  ├─davecgh
+│  │  │  └─go-spew
+│  │  │      └─spew
+│  │  ├─deckarep
+│  │  │  └─golang-set
+│  │  ├─docker
+│  │  │  └─docker
+│  │  │      └─pkg
+│  │  │          └─reexec
+│  │  ├─edsrzf
+│  │  │  └─mmap-go
+│  │  ├─elastic
+│  │  │  └─gosigar
+│  │  │      └─sys
+│  │  │          └─windows
+│  │  ├─ethereum
+│  │  │  └─ethash
+│  │  │      └─src
+│  │  │          └─libethash
+│  │  ├─fatih
+│  │  │  └─color
+│  │  ├─fjl
+│  │  │  └─memsize
+│  │  │      └─memsizeui
+│  │  ├─gballet
+│  │  │  └─go-libpcsclite
+│  │  ├─go-ole
+│  │  │  └─go-ole
+│  │  │      └─oleutil
+│  │  ├─go-stack
+│  │  │  └─stack
+│  │  ├─golang
+│  │  │  ├─protobuf
+│  │  │  │  ├─proto
+│  │  │  │  └─protoc-gen-go
+│  │  │  │      └─descriptor
+│  │  │  └─snappy
+│  │  ├─graph-gophers
+│  │  │  └─graphql-go
+│  │  │      ├─errors
+│  │  │      ├─internal
+│  │  │      │  ├─common
+│  │  │      │  ├─exec
+│  │  │      │  │  ├─packer
+│  │  │      │  │  ├─resolvable
+│  │  │      │  │  └─selected
+│  │  │      │  ├─query
+│  │  │      │  ├─schema
+│  │  │      │  └─validation
+│  │  │      ├─introspection
+│  │  │      ├─log
+│  │  │      ├─relay
+│  │  │      └─trace
+│  │  ├─hashicorp
+│  │  │  └─golang-lru
+│  │  │      └─simplelru
+│  │  ├─howeyc
+│  │  │  └─fsnotify
+│  │  ├─huin
+│  │  │  └─goupnp
+│  │  │      ├─dcps
+│  │  │      │  ├─internetgateway1
+│  │  │      │  └─internetgateway2
+│  │  │      ├─httpu
+│  │  │      ├─scpd
+│  │  │      ├─soap
+│  │  │      └─ssdp
+│  │  ├─influxdata
+│  │  │  └─influxdb
+│  │  │      ├─client
+│  │  │      ├─models
+│  │  │      └─pkg
+│  │  │          └─escape
+│  │  ├─jackpal
+│  │  │  └─go-nat-pmp
+│  │  ├─julienschmidt
+│  │  │  └─httprouter
+│  │  ├─karalabe
+│  │  │  └─hid
+│  │  │      ├─hidapi
+│  │  │      │  ├─hidapi
+│  │  │      │  ├─libusb
+│  │  │      │  ├─mac
+│  │  │      │  └─windows
+│  │  │      └─libusb
+│  │  │          └─libusb
+│  │  │              └─os
+│  │  ├─mattn
+│  │  │  ├─go-colorable
+│  │  │  ├─go-isatty
+│  │  │  └─go-runewidth
+│  │  ├─mohae
+│  │  │  └─deepcopy
+│  │  ├─naoina
+│  │  │  ├─go-stringutil
+│  │  │  └─toml
+│  │  │      └─ast
+│  │  ├─olekukonko
+│  │  │  └─tablewriter
+│  │  ├─opentracing
+│  │  │  └─opentracing-go
+│  │  │      ├─ext
+│  │  │      └─log
+│  │  ├─oschwald
+│  │  │  └─maxminddb-golang
+│  │  ├─pborman
+│  │  │  └─uuid
+│  │  ├─peterh
+│  │  │  └─liner
+│  │  ├─pkg
+│  │  │  └─errors
+│  │  ├─pmezard
+│  │  │  └─go-difflib
+│  │  │      └─difflib
+│  │  ├─prometheus
+│  │  │  └─tsdb
+│  │  │      └─fileutil
+│  │  ├─rjeczalik
+│  │  │  └─notify
+│  │  ├─robertkrimen
+│  │  │  └─otto
+│  │  │      ├─ast
+│  │  │      ├─dbg
+│  │  │      ├─file
+│  │  │      ├─parser
+│  │  │      ├─registry
+│  │  │      └─token
+│  │  ├─rs
+│  │  │  ├─cors
+│  │  │  └─xhandler
+│  │  ├─StackExchange
+│  │  │  └─wmi
+│  │  ├─status-im
+│  │  │  └─keycard-go
+│  │  │      └─derivationpath
+│  │  ├─stretchr
+│  │  │  └─testify
+│  │  │      ├─assert
+│  │  │      └─require
+│  │  ├─syndtr
+│  │  │  └─goleveldb
+│  │  │      └─leveldb
+│  │  │          ├─cache
+│  │  │          ├─comparer
+│  │  │          ├─errors
+│  │  │          ├─filter
+│  │  │          ├─iterator
+│  │  │          ├─journal
+│  │  │          ├─memdb
+│  │  │          ├─opt
+│  │  │          ├─storage
+│  │  │          ├─table
+│  │  │          └─util
+│  │  ├─tyler-smith
+│  │  │  └─go-bip39
+│  │  │      └─wordlists
+│  │  ├─uber
+│  │  │  ├─jaeger-client-go
+│  │  │  │  ├─config
+│  │  │  │  ├─internal
+│  │  │  │  │  ├─baggage
+│  │  │  │  │  │  └─remote
+│  │  │  │  │  ├─spanlog
+│  │  │  │  │  └─throttler
+│  │  │  │  │      └─remote
+│  │  │  │  ├─log
+│  │  │  │  ├─rpcmetrics
+│  │  │  │  ├─thrift
+│  │  │  │  ├─thrift-gen
+│  │  │  │  │  ├─agent
+│  │  │  │  │  ├─baggage
+│  │  │  │  │  ├─jaeger
+│  │  │  │  │  ├─sampling
+│  │  │  │  │  └─zipkincore
+│  │  │  │  └─utils
+│  │  │  └─jaeger-lib
+│  │  │      └─metrics
+│  │  └─wsddn
+│  │      └─go-ecdh
+│  ├─golang.org
+│  │  └─x
+│  │      ├─crypto
+│  │      │  ├─cast5
+│  │      │  ├─curve25519
+│  │      │  ├─ed25519
+│  │      │  │  └─internal
+│  │      │  │      └─edwards25519
+│  │      │  ├─internal
+│  │      │  │  ├─chacha20
+│  │      │  │  └─subtle
+│  │      │  ├─openpgp
+│  │      │  │  ├─armor
+│  │      │  │  ├─elgamal
+│  │      │  │  ├─errors
+│  │      │  │  ├─packet
+│  │      │  │  └─s2k
+│  │      │  ├─pbkdf2
+│  │      │  ├─poly1305
+│  │      │  ├─ripemd160
+│  │      │  ├─scrypt
+│  │      │  ├─sha3
+│  │      │  └─ssh
+│  │      │      └─terminal
+│  │      ├─net
+│  │      │  ├─context
+│  │      │  ├─html
+│  │      │  │  ├─atom
+│  │      │  │  └─charset
+│  │      │  └─websocket
+│  │      ├─sync
+│  │      │  └─syncmap
+│  │      ├─sys
+│  │      │  ├─cpu
+│  │      │  ├─unix
+│  │      │  └─windows
+│  │      └─text
+│  │          ├─encoding
+│  │          │  ├─charmap
+│  │          │  ├─htmlindex
+│  │          │  ├─internal
+│  │          │  │  └─identifier
+│  │          │  ├─japanese
+│  │          │  ├─korean
+│  │          │  ├─simplifiedchinese
+│  │          │  ├─traditionalchinese
+│  │          │  └─unicode
+│  │          ├─internal
+│  │          │  ├─language
+│  │          │  │  └─compact
+│  │          │  ├─tag
+│  │          │  └─utf8internal
+│  │          ├─language
+│  │          ├─runes
+│  │          ├─transform
+│  │          └─unicode
+│  │              └─norm
+│  └─gopkg.in
+│      ├─check.v1
+│      ├─natefinch
+│      │  └─npipe.v2
+│      ├─olebedev
+│      │  └─go-duktape.v3
+│      ├─sourcemap.v1
+│      │  └─base64vlq
+│      └─urfave
+│          └─cli.v1
+└─whisper
+    ├─mailserver
+    ├─shhclient
+    └─whisperv6
+```
 ## 源码解析
 - 账户
     - nonce
