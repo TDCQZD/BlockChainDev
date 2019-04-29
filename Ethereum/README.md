@@ -21,7 +21,8 @@
 
 ### 以太坊设计原理
 * https://ethfans.org/posts/510
-
+* https://ethfans.org/posts/ethereum-whitepaper
+* https://ethfans.org/posts/how-does-ethereum-work-anyway
 ### 以太坊 EVM原理与实现
 * https://www.cnblogs.com/helloworld2018/p/8998926.html
 
