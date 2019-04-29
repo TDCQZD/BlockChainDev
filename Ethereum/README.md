@@ -1,6 +1,8 @@
 # Ethereum
+- 公链
+- Dapp
 
-## 以太坊
+## 以太坊公链
 
 ### 网站
 * https://github.com/ethereum/go-ethereum
