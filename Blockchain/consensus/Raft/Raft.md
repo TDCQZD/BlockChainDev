@@ -15,8 +15,7 @@ go test
 ```
  
 ## Raft是什么
-Raft提供了一种在计算系统集群中分布状态机的通用方法，确保集群中的每个节点都同意一系
-列相同的状态转换.
+Raft提供了一种在计算系统集群中分布状态机的通用方法，确保集群中的每个节点都同意一系列相同的状态转换.
 
 它有许多开源参考实现，具有Go, C++, java和Scala中的完整规范实现.
 
@@ -24,14 +23,15 @@ Raft提供了一种在计算系统集群中分布状态机的通用方法，确�
 - follower (跟随者）：所有结点都以follower的状态开始。如果没收到leader消息则会变成candidate状态
 - candidate (候选人）：会向其他结点"拉选票"，如果得到大部分的票则成为leader,这个过程就叫做Leader选举(Leader Election) 
 - leader (领导者）：所有对系统的修改都会先经过leader
+
 ##  Raft—致性算法
-Raft 通过选出一个leader来简化日志副本的管理，例如，日志项(log entry)只允许从leader
-流向follower 
+Raft 通过选出一个leader来简化日志副本的管理，例如，日志项(log entry)只允许从leader流向follower 
 
 基于leader的方法，Raft算法可以分解成三个子问题
 - Leader election (领导选举)：原来的leader挂掉后，必须选出一个新的leader 
 - Log replication(日志复制)：leader从客户端接收日志，并复制到整个集群中
 - Safety (安全性)：如果有任意的server将日志项回放到状态机中了，那么其他的server只会回放相同的日志项
+
 ##  Leader election (领导选举）
 Raft使用一种心跳机制来触发领导人选举
  
