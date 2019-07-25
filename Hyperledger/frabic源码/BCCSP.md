@@ -1,6 +1,22 @@
 # BCCSP
+- sw ：软件基础的加密服务实现
+    - ECDSA
+    - HASH
+    - AES
+    - RSA
+- pkcs11 ：实现硬件基础的加密服务
+    - ECDSA
+- BCCSP工厂：factory
+    - swFactory
+    - pkcs11Factory
+
+
 ## BCCSP介绍
-BCCSP（blockchain cryptographic service provider）：称之为区域链加密服务提供者，在Hyperledger Fabric中，BCCSP的主要作用是为Hyperledger Fabric提供加密、签名服务，包括如下：
+BCCSP（blockchain cryptographic service provider）：称之为区域链加密服务提供者。为Fabric提供加密标准和算法的实现，包括哈希、签名、校验、加解密等。BCCSP通过MSP（即Membership Service Provider成员关系服务提供者）给核心功能和客户端SDK提供加密算法相关服务。
+
+另外BCCSP支持可插拔，提供多种CSP，支持自定义CSP。目前支持sw和pkcs11两种实现。
+
+在Hyperledger Fabric中，BCCSP的主要作用是为Hyperledger Fabric提供加密、签名服务，包括如下：
 
 * AES：一种分组加密实现算法，Hyperledger Fabric中主要用来对数据做加密解密处理。主要包含：AES128、AES192、AES256。
 * ECDSA：一种椭圆曲线加密算法，Hyperledger Fabric中主要用于签名与验签。主要包含：ECDSAP256、ECDSAP384。
@@ -8,6 +24,7 @@ BCCSP（blockchain cryptographic service provider）：称之为区域链加密�
 * HASH：哈希算法。主要包含：SHA256、SHA384、SHA3_256、SHA3_384。
 * PKCS11：一套基于硬件的标准安全接口。
 * HMAC： 密匙相关的哈希运算消息认证码
+
 如上所有的支持的技术都被Hyperledger Fabric作为常量定义在hyperledger/fabric/bccsp/opts.go文件中：
 ```
 package bccsp
@@ -495,6 +512,15 @@ pkcs11（PKCS，Public-Key Cryptography Standards）的实现形式与SW的实�
 * https://www.ibm.com/developerworks/cn/security/s-pkcs/
 * https://docs.oracle.com/cd/E19253-01/819-7056/6n91eac56/index.html#chapter2-9
 
+pkcs11包，即HSM基础的bccsp（the hsm-based BCCSP implementation），HSM是Hardware Security Modules，即硬件安全模块。
+pckcs11是硬件基础的加密服务实现，sw是软件基础的加密服务实现。这个硬件基础的实现以 https://github.com/miekg/pkcs11 这个库为基础。
+
+PKCS11称为Cyptoki，定义了一套独立于技术的程序设计接口，USBKey安全应用需要实现的接口。
+在密码系统中，PKCS#11是公钥加密标准（PKCS, Public-Key Cryptography Standards）中的一份子，由RSA实验室(RSA Laboratories)发布，它为加密令牌定义了一组平台无关的API ，如硬件安全模块和智能卡。
+
+pkcs11包主要内容是PKCS11标准的实现及椭圆曲线算法中以low-S算法为主导的go实现。同时也通过利用RSA的一些特性和算法，丰富了PKCS11加密体系。
+
+
 ### pkcs11目录结构：
 ```
 hyperledger/fabric/bccsp/pkcs11/
@@ -632,6 +658,10 @@ func loadLib(lib, pin, label string) (*pkcs11.Ctx, uint, *pkcs11.SessionHandle, 
 }
 ```
 ## BCCSP工厂
+通过factory可以获得两类BCCSP实例：sw和pkcs11。
+
+BCCSP实例是通过工厂来提供的，sw包对应的工厂在swFactory.go中实现，pkcs11包对应的工厂在pkcs11Factory.go中实现，它们都共同实现了BCCSPFactory接口。
+
 BCCSP实例通过Factory来创建并提供，实现了SW与pkcs11两种实例的提供，SW由swfactory.go提供，pkcs11由pkcs11factory.go提供；pluginfactory.go似乎有些问题，所以我们不需要去关注。
 ```
 hyperledger/fabric/bccsp/factory/
