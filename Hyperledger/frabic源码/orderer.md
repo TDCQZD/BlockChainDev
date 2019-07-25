@@ -1,4 +1,18 @@
 # orderer
+
+Orderer，为排序节点，对所有发往网络中的交易进行排序，将排序后的交易安排配置中的约定整理为块，之后提交给Committer进行处理。
+
+orderer start命令实现流程：
+- (1) 加载命令行工具并解析命令行参数
+- (2) 加载配置文件
+- (3) 初始化日志系统（日志输出、日志格式、日志级别、sarama日志）
+- (4) 启动Go profiling服务（Go语言分析工具）
+- (5) 创建Grpc Server
+- (6) 初始化本地MSP并获取签名
+- (7) 初始化MultiChain管理器（启动共识插件goroutine，接收和处理消息）
+- (8) 注册orderer service并启动grpcServer
+
+
 ## Orderer服务初始化
 ### orderer包目录结构：
 在命令提示符中使用docker-compose启动网络时，会查找一个名为docker-compose.yaml的配置文件（默认网络启动配置文件），在该配置文件中指定了相关的节点容器，而且特别说明的是Orderer容器是优先启动的，所以我们可以直接打开hyperledger/fabric/orderer文件夹，发现有一个main.go的文件，打开该文件，可以发现有一个main函数，函数中调用了server包中的另一个Main函数用来启动服务。下面我们进入到server.Main()函数中详细解释网络启动时都做了些什么事情。
