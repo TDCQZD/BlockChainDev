@@ -1,5 +1,29 @@
 # cryptogen
+
+cryptogen:用于生成组织关系和身份证书。
+* 命令为：`cryptogen generate --config=./crypto-config.yaml --output ./crypto-config`
+* crypto-config.yaml:配置文件
+* 生成crypto-config目录结构解读：
+    
+    每个组织下，都包括ca、tlsca、msp、peers（或orderers）、users5个目录。如下以peer为例。
+
+    每个组织下，有3种身份，组织本身、节点、用户。
+
+    * 组织本身，包括ca、tlsca、msp三种信息，即组织的根证书、组织的根TLS证书、组织的身份信息。
+        * 其中ca、和tlsca，均包括根证书和私钥。
+        * 组织本身msp目录，包括ca根证书、tlsca根证书、管理员证书。
+    * 每个节点(peers/orderers)目录下，包括msp和tls两个目录，即节点的身份信息，以及tls相关的证书和私钥。
+        * 其中msp目录包括5种信息，cacerts、tlscacerts、signcerts为根证书、tls根证书和管理员证书，keystore、signcerts为节点的签名私钥和节点证书。
+        * 其中tls目录，包括tls根证书，以及tls版本节点证书和私钥。
+    * 每个用户(users)目录下，也包括msp和tls两个目录，即用户的身份信息，以及tls版本用户身份信息。
+        * 其中msp目录下包括5种信息，cacerts、tlscacerts、signcerts为根证书、tls根证书和管理员证书，keystore、signcerts为用户的签名私钥和节点证书。
+        * 其中tls目录，包括tls根证书，以及tls版本用户证书和私钥。
+
+
+
 无论是开发Hyperledger Fabric应用还是测试，都需要有完整的网络环境，而Hyperledger Fabric网络环境包含了较多的内容，包括网络节点，身份证书，私钥等等。这些内容（Network Artifacts）全部都可以使用Hyperledger Fabric 中的cryptogen工具来负责生成，现在我们从源码中来分析一下相关的内容是如何生成的。
+
+
 
 ## 组织结构的定义
 cryptogen工具的源码文件所在路径：hyperledger/fabric/common/tools/cryptogen/main.go，下面我们来分析其中的具体内容。
