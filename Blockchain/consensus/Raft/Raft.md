@@ -67,3 +67,4 @@ Raft使用一种心跳机制来触发领导人选举
 -  raft的log replication要保证如果两个log entry有相同的index和term,那么它们存储相同的指令
 
 -  leader在一特定的term和index下，只会创建一个log entry
+

@@ -97,7 +97,7 @@ Paxos是第一个被证明的共识算法，其原理基于两阶段提交并进
 #### prepare阶段
 - Proposer选择一个提案编号n,然后向acceptor的某个超过半数的子成员发送编号为n的prepare请求
 
-- Acceptor收到prepare消息后，如果提案的编号n大于该acceptor已经回复的所有prepare请求的编号，则Acceptor将自己上次已经批准的最大编号提案回复给Proposer,并承诺不再回复小于n的提案
+- Acceptor收到prepare消息后，如果提案的编号n小于该acceptor已经回复的所有prepare请求的编号，则Acceptor将自己上次已经批准的最大编号提案回复给Proposer,并承诺不再回复小于n的提案
 
 #### commit阶段
 

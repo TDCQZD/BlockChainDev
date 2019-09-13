@@ -18,8 +18,6 @@ simple_voting_dapp:使用nodejs实现简单投票DApp;
 
 contract_workflow：智能合约完整的工作流，使用脚本自动化编译、部署和测试合约;
 
-
-
 Truffle_voting:用truffle构建简单投票DApp
 
 Token_voting:

@@ -42,4 +42,4 @@
 
 ## 参考资料
 * [深入讲解以太坊的数据存储] https://juejin.im/post/5a4f3aa9f265da3e5468e08e
-* [以太坊安全漏洞最全总结及安全建议]http://www.5bite.com/post/3974.html
+

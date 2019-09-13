@@ -99,6 +99,7 @@ func Keccak256(data ...[]byte) []byte {
 ```
 **取160bit作为地址**
 > 一字节=8bit
+> 20字节=160bit(二进制)=40字节(16进制)
 ```
 const (
 	// AddressLength is the expected length of the address
